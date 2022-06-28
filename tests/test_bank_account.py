@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
@@ -30,5 +31,24 @@ class TestBank1Account(TestCase):
         mock_get_balance.assert_called_once_with(self.bank_account.account_id)
         mock_get_currency.assert_called_once_with(self.bank_account.account_id)
 
-    def test_get_transactions(self):
-        pass
+    @patch.object(Bank1AccountSource, 'get_transactions')
+    def test_get_transactions(self, mock_get_transactions):
+        today = datetime.now()
+        yesterday = today - timedelta(days=1)
+
+        mock_get_transactions.return_value = [
+            Mock(amount=1, type=1, text='test transaction'),
+            Mock(amount=10, type=2, text='another test transaction'),
+        ]
+
+        expected_parsed_transactions = [
+            (1, 1, 'test transaction'),
+            (10, 2, 'another test transaction')
+        ]
+
+        transactions = self.bank_account.get_transactions(
+            from_date=today,
+            to_date=yesterday
+        )
+
+        self.assertEqual(transactions, expected_parsed_transactions)
