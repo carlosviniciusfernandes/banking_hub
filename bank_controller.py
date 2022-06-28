@@ -1,4 +1,4 @@
-from banking_hub.bank_account import BankAccount
+from banking_hub.bank_accounts.bank_account_model import BankAccount
 
 
 class BankController:

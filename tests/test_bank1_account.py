@@ -9,8 +9,8 @@ from banking_hub.packages.bank1 import Bank1AccountSource
 class TestBank1Account(TestCase):
 
     @classmethod
-    def setUpClass(self) -> None:
-        self.bank_account: Bank1Account = Bank1Account(account_id=1234)
+    def setUpClass(cls) -> None:
+        cls.bank_account: Bank1Account = Bank1Account(account_id=1234)
         super().setUpClass()
 
     @patch.object(Bank1AccountSource, 'get_account_currency')
