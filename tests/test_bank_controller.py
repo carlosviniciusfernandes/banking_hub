@@ -17,7 +17,7 @@ class TestBankControllerSetup(TestCase):
 
         controller.add_bank_account(
             bank='test_bank_account',
-            acccount=mock_bank_account
+            account=mock_bank_account
         )
 
         self.assertEqual(controller.bank_accounts, {'test_bank_account':mock_bank_account})
@@ -27,7 +27,7 @@ class TestBankControllerSetup(TestCase):
         controller = BankController()
         controller.bank_accounts['test_bank_account'] = mock_bank_account
 
-        controller.add_remove_account(
+        controller.remove_bank_account(
             bank='test_bank_account'
         )
 
@@ -41,8 +41,8 @@ class TestBankControllerDataOutput(TestCase):
         cls.bank_controller = BankController()
         super().setUpClass()
 
-    def test_print_balance():
+    def test_print_balance(self):
         pass
 
-    def test_print_transactions():
+    def test_print_transactions(self):
         pass
