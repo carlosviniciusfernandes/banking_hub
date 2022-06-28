@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
-from banking_hub.bank_account import Bank2Account
+from banking_hub.bank_accounts.bank2_account import Bank2Account
 from banking_hub.packages.bank2 import Bank2AccountSource
 
 
