@@ -2,8 +2,7 @@ from datetime import datetime, timedelta
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
-
-from banking_hub.bank_account import Bank1Account, BankAccount
+from banking_hub.bank_account import Bank1Account
 from banking_hub.packages.bank1 import Bank1AccountSource
 
 
@@ -22,8 +21,8 @@ class TestBank1Account(TestCase):
         mock_get_currency: Mock
     ):
         mock_get_balance.return_value = 100
-        mock_get_currency.return_value = "BTC"
-        expected_balance = (100, "BTC")
+        mock_get_currency.return_value = 'BTC'
+        expected_balance = (100, 'BTC')
 
         balance = self.bank_account.get_balance()
 
@@ -32,7 +31,7 @@ class TestBank1Account(TestCase):
         mock_get_currency.assert_called_once_with(self.bank_account.account_id)
 
     @patch.object(Bank1AccountSource, 'get_transactions')
-    def test_get_transactions(self, mock_get_transactions):
+    def test_get_transactions(self, mock_get_transactions: Mock):
         today = datetime.now()
         yesterday = today - timedelta(days=1)
 
