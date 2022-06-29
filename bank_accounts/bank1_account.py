@@ -1,8 +1,8 @@
 from datetime import datetime
-from typing import Tuple
+from typing import List, Tuple
 
 from banking_hub.bank_accounts.bank_account_model import BankAccount
-from banking_hub.packages.bank1 import Bank1AccountSource
+from banking_hub.packages.bank1_integration import Bank1AccountSource
 
 
 class Bank1Account(BankAccount):
@@ -19,7 +19,7 @@ class Bank1Account(BankAccount):
         self,
         from_date: datetime,
         to_date: datetime
-    ) -> Tuple[float, int, str]:
+    ) -> List[Tuple[float, int, str]]:
         raw_transactions = Bank1AccountSource.get_transactions(
             account_id=self.account_id,
             from_date=from_date,

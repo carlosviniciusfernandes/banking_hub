@@ -3,15 +3,15 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from banking_hub.bank_accounts.bank1_account import Bank1Account
-from banking_hub.packages.bank1 import Bank1AccountSource
+from banking_hub.packages.bank1_integration import Bank1AccountSource
 
 
 class TestBank1Account(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.bank_account: Bank1Account = Bank1Account(account_id=1234)
         super().setUpClass()
+        cls.bank_account: Bank1Account = Bank1Account(account_id=1234)
 
     @patch.object(Bank1AccountSource, 'get_account_currency')
     @patch.object(Bank1AccountSource, 'get_account_balance')

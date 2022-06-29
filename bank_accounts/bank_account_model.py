@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Tuple
+from typing import List, Tuple
 
 
 class BankAccount(ABC):
@@ -10,5 +10,8 @@ class BankAccount(ABC):
         pass
 
     @abstractmethod
-    def get_transactions(from_date: datetime, to_date: datetime) -> Tuple[float, int, str]:
+    def get_transactions(
+        from_date: datetime,
+        to_date: datetime
+    ) -> List[Tuple[float, int, str]]:
         pass
