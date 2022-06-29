@@ -1,4 +1,6 @@
 from banking_hub.bank_accounts.bank_account_model import BankAccount
+from banking_hub.resources.errors import (BankAccountNotFound,
+                                          InvalidBankAccount)
 
 
 class BankController:
@@ -14,10 +16,17 @@ class BankController:
         if isinstance(account, BankAccount):
             self.bank_accounts[bank] = account
         else:
-            raise TypeError('Invalid Type, please provide an account that is a BankAccount sub-type')
+            raise InvalidBankAccount(
+                'Could not register account, please provide an account object that is a BankAccount sub-type'
+            )
 
     def remove_bank_account(self, bank: str) -> None:
-        self.bank_accounts.pop(bank)
+        try:
+            self.bank_accounts.pop(bank)
+        except KeyError:
+            raise BankAccountNotFound(
+                f'Could not find and account for {bank}, please check the registered banks account'
+            )
 
     def print_balances(self):
         pass
