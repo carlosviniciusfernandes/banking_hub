@@ -11,7 +11,10 @@ class BankController:
         bank: str,
         account: BankAccount
     ) -> None:
-        self.bank_accounts[bank] = account
+        if isinstance(account, BankAccount):
+            self.bank_accounts[bank] = account
+        else:
+            raise TypeError('Invalid Type, please provide an account that is a BankAccount sub-type')
 
     def remove_bank_account(self, bank: str) -> None:
         self.bank_accounts.pop(bank)

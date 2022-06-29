@@ -22,6 +22,17 @@ class TestBankControllerSetup(TestCase):
 
         self.assertEqual(controller.bank_accounts, {'test_bank_account':mock_bank_account})
 
+    def test_add__invalid_bank_account_raise_error(self):
+        mock_bank_account = Mock()
+        controller = BankController()
+
+        with self.assertRaises(TypeError):
+            controller.add_bank_account(
+                bank='test_invalid_bank_account',
+                account=mock_bank_account
+            )
+        self.assertEqual(controller.bank_accounts, {})
+
     def test_remove_bank_account(self):
         mock_bank_account = Mock(spec=BankAccount)
         controller = BankController()
