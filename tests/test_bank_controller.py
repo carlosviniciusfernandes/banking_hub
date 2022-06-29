@@ -2,9 +2,9 @@ from datetime import datetime, timedelta
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
-from banking_hub.bank_accounts.bank_account_model import BankAccount
-from banking_hub.bank_controller import BankController
-from banking_hub.resources.errors import (BankAccountNotFound,
+from bank_accounts.bank_account_model import BankAccount
+from bank_controller import BankController
+from resources.errors import (BankAccountNotFound,
                                           InvalidBankAccount)
 
 

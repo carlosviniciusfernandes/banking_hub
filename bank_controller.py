@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from banking_hub.bank_accounts.bank_account_model import BankAccount
-from banking_hub.resources.errors import (BankAccountNotFound,
+from bank_accounts.bank_account_model import BankAccount
+from resources.errors import (BankAccountNotFound,
                                           InvalidBankAccount)
 
 
@@ -47,7 +47,7 @@ class BankController:
         message = f'Transactions from {from_date} to {to_date}'
 
         for account_name, account in self.bank_accounts.items():
-            transactions = account.get_transactions()
+            transactions = account.get_transactions(from_date, to_date)
             message += f'\n\t# {account_name}:'
             for index, transaction in enumerate(transactions):
                 value, currency, text = transaction
