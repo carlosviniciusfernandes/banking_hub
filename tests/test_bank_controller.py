@@ -2,28 +2,29 @@ from datetime import datetime, timedelta
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
-from bank_accounts.bank_account_model import BankAccount
+from bank_accounts import BankAccount
 from bank_controller import BankController
-from resources.errors import (BankAccountNotFound,
-                                          InvalidBankAccount)
+from resources.errors import BankAccountNotFound, InvalidBankAccount
 
 
 class TestBankControllerSetup(TestCase):
 
+    def setUp(self) -> None:
+        super().setUp()
+        self.controller = BankController()
+
     def test_initialization(self):
-        controller = BankController()
-        self.assertEqual(controller.bank_accounts, {})
+        self.assertEqual(self.controller.bank_accounts, {})
 
     def test_add_bank_account(self):
         mock_bank_account = Mock(spec=BankAccount)
-        controller = BankController()
 
-        controller.add_bank_account(
+        self.controller.add_bank_account(
             account_name='test_bank_account',
             account=mock_bank_account
         )
 
-        self.assertEqual(controller.bank_accounts, {'test_bank_account':mock_bank_account})
+        self.assertEqual(self.controller.bank_accounts, {'test_bank_account':mock_bank_account})
 
     def test_add_invalid_bank_account_raise_error(self):
         mock_bank_account = Mock()
@@ -38,25 +39,23 @@ class TestBankControllerSetup(TestCase):
 
     def test_remove_bank_account(self):
         mock_bank_account = Mock(spec=BankAccount)
-        controller = BankController()
-        controller.bank_accounts['test_bank_account'] = mock_bank_account
+        self.controller.bank_accounts['test_bank_account'] = mock_bank_account
 
-        controller.remove_bank_account(
+        self.controller.remove_bank_account(
             account_name='test_bank_account'
         )
 
-        self.assertEqual(controller.bank_accounts, {})
+        self.assertEqual(self.controller.bank_accounts, {})
 
     def test_fail_to_remove_bank_account_raises_error(self):
         mock_bank_account = Mock(spec=BankAccount)
-        controller = BankController()
-        controller.bank_accounts['test_bank_account'] = mock_bank_account
+        self.controller.bank_accounts['test_bank_account'] = mock_bank_account
 
         with self.assertRaises(BankAccountNotFound):
-            controller.remove_bank_account(
+            self.controller.remove_bank_account(
                 account_name='test_invalid_bank_account'
             )
-        self.assertEqual(controller.bank_accounts, {'test_bank_account': mock_bank_account})
+        self.assertEqual(self.controller.bank_accounts, {'test_bank_account': mock_bank_account})
 
 
 class TestBankControllerDataOutput(TestCase):

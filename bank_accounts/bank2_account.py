@@ -1,8 +1,9 @@
 from datetime import datetime
 from typing import List, Tuple
 
-from bank_accounts.bank_account_model import BankAccount
 from packages.bank2_integration import Bank2AccountSource
+
+from .bank_account_model import BankAccount
 
 
 class Bank2Account(BankAccount):

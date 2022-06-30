@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from bank_accounts.bank_account_model import BankAccount
+from bank_accounts import BankAccount
 from resources.errors import BankAccountNotFound, InvalidBankAccount
 
 
@@ -58,7 +58,7 @@ class BankController:
     def _validate_transactions_timedelta(
         self
     ) -> None:
-        """ To be implement, the ideia is to check that to_date > from_date and
-            Interval between the dates is less then a certain period (eg. 1 year)
+        """ To be implemented, the idea is to check that to_date > from_date and
+            the interval between the dates is less then a certain period (eg. 1 year)
         """
         pass
