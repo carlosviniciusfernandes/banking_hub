@@ -44,6 +44,15 @@ __Note__: If want a `pytest` as the test runner, you can but you will need to in
 An advantage of using `pytest` as the test runner, it provides a much nicer output for the reader.
 
 ---
+
+### Feature branch Tkview disclaimer
+After developing a initial solution, I created a feature branch where I broken down the `BankController` into a GUIController and a `BankingHub` service class. Then I refactored the application to have a user interface using an MVC like architecture with two different implementations for the view, one using the terminal and the other using the `tkinter` package.
+
+Since it requires additonal python packages, I decided to do it in a separate. Checkout the branch code well the gif demos here:
+> https://github.com/carlosviniciusfernandes/banking_hub/tree/tkview
+
+
+---
 ### Additional Notes
 1. The python 3.7 requirement is due the use of dataclasses to write the banks's external API integrations. You can however just pip install dataclasses package  to use the application with python 3.6.
 2. Since the integrations are already using dataclasses for representing balances and transaction, the `BankAccount` class are representing those entities using simple `tuples` for two reasons. First reason is that tuples are very simple to understand, behaving like immutable lists. Second reason is to let explicit that the application works with those entities (balance and transaction) in a different format from the banks.
