@@ -1,11 +1,10 @@
 import tkinter as tk
 
 from user_interface.gui_controller import GUIController
+from user_interface.views import BaseView
 
-from .base_view import View
 
-
-class TkView(View):
+class TkView(BaseView):
     """ Based on Arjan's TK View example in his MVC lecture.
 
         ref: https://github.com/ArjanCodes/betterpython/blob/cb616a049ec4e4d6a7541ed41cc41238563dea9c/8%20-%20mvc/mvc-after.py#L1
