@@ -1,17 +1,17 @@
 from datetime import datetime, timedelta
 from unittest import TestCase
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 from bank_accounts import BankAccount
-from bank_controller import BankController
+from banking_hub_service import BankingHubService
 from resources.errors import BankAccountNotFound, InvalidBankAccount
 
 
-class TestBankControllerSetup(TestCase):
+class TestBankingHubServiceSetup(TestCase):
 
     def setUp(self) -> None:
         super().setUp()
-        self.controller = BankController()
+        self.controller = BankingHubService()
 
     def test_initialization(self):
         self.assertEqual(self.controller.bank_accounts, {})
@@ -28,7 +28,7 @@ class TestBankControllerSetup(TestCase):
 
     def test_add_invalid_bank_account_raise_error(self):
         mock_bank_account = Mock()
-        controller = BankController()
+        controller = BankingHubService()
 
         with self.assertRaises(InvalidBankAccount):
             controller.add_bank_account(
@@ -58,13 +58,13 @@ class TestBankControllerSetup(TestCase):
         self.assertEqual(self.controller.bank_accounts, {'test_bank_account': mock_bank_account})
 
 
-class TestBankControllerDataAggregation(TestCase):
+class TestBankingHubServiceDataAggregation(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
 
-        cls.bank_controller = BankController()
+        cls.bank_controller = BankingHubService()
 
         account_1 = Mock(spec=BankAccount)
         account_1.get_balance.return_value = (100, 'BRL')
@@ -79,25 +79,25 @@ class TestBankControllerDataAggregation(TestCase):
 
     def test_list_balances(self):
         expected_balances = [
-           '\ttest_account_1 - 100 BRL',
-           '\ttest_account_2 - 1 BRL'
+           'test_account_1 - 100 BRL',
+           'test_account_2 - 1 BRL'
         ]
 
         balances = self.bank_controller.list_balances()
         self.assertEqual(balances, expected_balances)
 
-    @patch('builtins.print')
-    def test_print_transactions(self, mock_print: Mock):
+    def test_list_transactions(self):
         to_date = datetime.now()
         from_date = to_date - timedelta(days=1)
-        expected_message = \
-            f'Transactions from {from_date} to {to_date}' + \
-            '\n\t# test_account_1:' + \
-            '\n\t\t1. 70 BRL (Expensive Milk)' + \
-            '\n\t\t2. 10 BRL (Coke)' + \
-            '\n\t# test_account_2:' + \
-            '\n\t\t1. 250 BRL (Electricity bill)'
+        expected_transactions = {
+          'test_account_1': [
+                '70 BRL (Expensive Milk)',
+                '10 BRL (Coke)'
+            ],
+            'test_account_2': [
+                '250 BRL (Electricity bill)'
+            ]
+        }
 
-        self.bank_controller.print_transaction(from_date, to_date)
-
-        mock_print.assert_called_once_with(expected_message)
+        transactions = self.bank_controller.list_transactions(from_date, to_date)
+        self.assertEqual(transactions, expected_transactions)

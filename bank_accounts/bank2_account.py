@@ -8,9 +8,9 @@ from .bank_account_model import BankAccount
 
 class Bank2Account(BankAccount):
 
-    def __init__(self, account_id) -> None:
+    def __init__(self, account_id: int) -> None:
         super().__init__()
-        self.account_id:int = account_id
+        self.account_id = account_id
 
     def get_balance(self) -> Tuple[float, str]:
         raw_balance = Bank2AccountSource.get_balance(self.account_id)

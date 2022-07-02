@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 
+from user_interface.gui_controller import GUIController
+
 
 class View(ABC):
     @abstractmethod
-    def setup(self, controller):
+    def setup(self, controller: GUIController):
         pass
 
     @abstractmethod

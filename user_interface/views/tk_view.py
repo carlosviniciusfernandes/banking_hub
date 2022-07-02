@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from user_interface.gui_controller import GUIController
+
 from .base_view import View
 
 
@@ -9,7 +11,7 @@ class TkView(View):
         ref: https://github.com/ArjanCodes/betterpython/blob/cb616a049ec4e4d6a7541ed41cc41238563dea9c/8%20-%20mvc/mvc-after.py#L1
     """
 
-    def setup(self, controller):
+    def setup(self, controller: GUIController):
 
         # setup tkinter
         self.root = tk.Tk()
@@ -44,7 +46,7 @@ class TkView(View):
         )
         self.clear_button.pack()
 
-    def append_data_to_view(self, data):
+    def append_data_to_view(self, data: str):
         for row in data.split('\n'):
             self.list.insert(tk.END, row.replace('\t', '....'))
 
