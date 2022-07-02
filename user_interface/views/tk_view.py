@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from views.base_view import View
+from .base_view import View
 
 
 class TkView(View):
@@ -25,31 +25,31 @@ class TkView(View):
 
         self.get_balance_button = tk.Button(
             self.frame,
-            text="Get Balances",
+            text="Get Accounts' Balances",
             command=controller.handle_click_print_balances
         )
         self.get_balance_button.pack()
 
         self.get_transactions_button = tk.Button(
             self.frame,
-            text="Get Transactions",
-            command=controller.handle_click_print_transaction
+            text="Get Last Year Transactions",
+            command=controller.handle_click_print_transactions
         )
         self.get_transactions_button.pack()
 
         self.clear_button = tk.Button(
             self.frame,
             text="Clear",
-            command=controller.handle_click_clear_list
+            command=controller.handle_click_clear_view
         )
         self.clear_button.pack()
 
-    def append_to_list(self, item):
-        self.list.insert(tk.END, item)
+    def append_data_to_view(self, data):
+        for row in data.split('\n'):
+            self.list.insert(tk.END, row.replace('\t', '....'))
 
-    def clear_list(self):
+    def clear_data_from_view(self):
         self.list.delete(0, tk.END)
 
     def start_main_loop(self):
-        # start the loop
         self.root.mainloop()

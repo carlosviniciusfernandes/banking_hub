@@ -1,9 +1,8 @@
 from datetime import datetime, timedelta
+from typing import Tuple
 
 from bank_accounts import BankAccount
 from resources.errors import BankAccountNotFound, InvalidBankAccount
-from views.base_view import View
-
 
 class BankController:
 
@@ -31,14 +30,12 @@ class BankController:
                 f'Could not find {account_name}, please check the registered banks accounts and try again'
             )
 
-    def print_balances(self) -> None:
-        message = 'Account Balance:'
+    def list_balances(self) -> Tuple[str, float, str]:
+        aggregated_balances = []
         for account_name, account in self.bank_accounts.items():
             amount, currency = account.get_balance()
-            message += f'\n{account_name} - {amount} {currency}'
-
-        # print(message)
-        return message
+            aggregated_balances.append(f'\t{account_name} - {amount} {currency}')
+        return aggregated_balances
 
     def print_transaction(
         self,
@@ -56,27 +53,3 @@ class BankController:
 
         # print(message)
         return message
-
-class Controller:
-
-    def __init__(self, controller, view: View):
-        self.controller = controller
-        self.view = view
-
-    def start(self):
-        self.view.setup(self.view, self)
-        self.view.start_main_loop(self.view)
-
-    def handle_click_print_balances(self):
-        message = self.controller.print_balances()
-        for item in message.split('\n'):
-            self.view.append_to_list(self.view, item=item)
-
-    def handle_click_print_transaction(self):
-        last_year = datetime.now() - timedelta(days=365)
-        message = self.controller.print_transaction(from_date=last_year)
-        for item in message.split('\n'):
-            self.view.append_to_list(self.view, item=item.replace('\t', '    '))
-
-    def handle_click_clear_list(self):
-        self.view.clear_list(self.view)

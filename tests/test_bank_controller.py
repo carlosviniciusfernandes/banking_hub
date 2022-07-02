@@ -58,7 +58,7 @@ class TestBankControllerSetup(TestCase):
         self.assertEqual(self.controller.bank_accounts, {'test_bank_account': mock_bank_account})
 
 
-class TestBankControllerDataOutput(TestCase):
+class TestBankControllerDataAggregation(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
@@ -77,16 +77,14 @@ class TestBankControllerDataOutput(TestCase):
         cls.bank_controller.add_bank_account(account_name='test_account_1', account=account_1)
         cls.bank_controller.add_bank_account(account_name='test_account_2', account=account_2)
 
-    @patch('builtins.print')
-    def test_print_balance(self, mock_print: Mock):
-        expected_message = \
-            'Account Balance:' + \
-            '\ntest_account_1 - 100 BRL' + \
-            '\ntest_account_2 - 1 BRL'
+    def test_list_balances(self):
+        expected_balances = [
+           '\ttest_account_1 - 100 BRL',
+           '\ttest_account_2 - 1 BRL'
+        ]
 
-        self.bank_controller.print_balances()
-
-        mock_print.assert_called_once_with(expected_message)
+        balances = self.bank_controller.list_balances()
+        self.assertEqual(balances, expected_balances)
 
     @patch('builtins.print')
     def test_print_transactions(self, mock_print: Mock):

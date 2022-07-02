@@ -7,11 +7,11 @@ class View(ABC):
         pass
 
     @abstractmethod
-    def append_to_list(self, item):
+    def append_data_to_view(self, data):
         pass
 
     @abstractmethod
-    def clear_list(self):
+    def clear_data_from_view(self):
         pass
 
     @abstractmethod
