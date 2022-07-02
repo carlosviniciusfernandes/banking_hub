@@ -3,6 +3,7 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from bank_accounts import Bank2Account
+from bank_accounts.bank_account_model import OperationsValidator
 from packages.bank2_integration import Bank2AccountSource
 
 
@@ -26,8 +27,13 @@ class TestBank2Account(TestCase):
         self.assertEqual(balance, expected_balance)
         mock_get_balance.assert_called_once_with(self.bank_account.account_id)
 
+    @patch.object(OperationsValidator, 'validate_transactions_timedelta')
     @patch.object(Bank2AccountSource, 'get_transactions')
-    def test_get_transactions(self, mock_get_transactions: Mock):
+    def test_get_transactions(
+        self,
+        mock_get_transactions: Mock,
+        mock_validator: Mock
+    ):
         today = datetime.now()
         yesterday = today - timedelta(days=1)
 
@@ -47,3 +53,4 @@ class TestBank2Account(TestCase):
         )
 
         self.assertEqual(transactions, expected_parsed_transactions)
+        mock_validator.assert_called_once()

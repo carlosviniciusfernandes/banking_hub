@@ -4,3 +4,7 @@ class InvalidBankAccount(TypeError):
 
 class BankAccountNotFound(KeyError):
     pass
+
+
+class InvalidTimeInterval(ValueError):
+    pass

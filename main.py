@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from bank_accounts import Bank1Account, Bank2Account
 from bank_controller import BankController
 
@@ -19,5 +21,5 @@ if __name__ == "__main__":
     controller.print_balances()
 
     from datetime import datetime
-    from_date = datetime.now()
+    from_date = datetime.now() - timedelta(days=1)
     controller.print_transaction(from_date)

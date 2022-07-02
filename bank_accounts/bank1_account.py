@@ -9,6 +9,7 @@ from .bank_account_model import BankAccount
 class Bank1Account(BankAccount):
 
     def __init__(self, account_id) -> None:
+        super().__init__()
         self.account_id:int = account_id
 
     def get_balance(self) -> Tuple[float, str]:
@@ -21,6 +22,8 @@ class Bank1Account(BankAccount):
         from_date: datetime,
         to_date: datetime
     ) -> List[Tuple[float, int, str]]:
+        self.validator_class.validate_transactions_timedelta(from_date, to_date)
+
         raw_transactions = Bank1AccountSource.get_transactions(
             account_id=self.account_id,
             from_date=from_date,

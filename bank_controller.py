@@ -53,12 +53,3 @@ class BankController:
                 message += f'\n\t\t{index+1}. {value} {currency} ({text})'
 
         print(message)
-
-    # TODO
-    def _validate_transactions_timedelta(
-        self
-    ) -> None:
-        """ To be implemented, the idea is to check that to_date > from_date and
-            the interval between the dates is less then a certain period (eg. 1 year)
-        """
-        pass
