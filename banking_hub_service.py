@@ -1,10 +1,11 @@
 from datetime import datetime
+from typing import Dict, List
 
 from bank_accounts import BankAccount
 from resources.errors import BankAccountNotFound, InvalidBankAccount
 
 
-class BankController:
+class BankingHubService:
 
     def __init__(self) -> None:
         self.bank_accounts: dict[str, BankAccount] = {}
@@ -30,26 +31,26 @@ class BankController:
                 f'Could not find {account_name}, please check the registered banks accounts and try again'
             )
 
-    def print_balances(self) -> None:
-        message = 'Account Balance:'
+    def list_balances(self) -> List[str]:
+        aggregated_balances = []
         for account_name, account in self.bank_accounts.items():
             amount, currency = account.get_balance()
-            message += f'\n{account_name} - {amount} {currency}'
+            aggregated_balances.append(f'{account_name} - {amount} {currency}')
+        return aggregated_balances
 
-        print(message)
-
-    def print_transaction(
+    def list_transactions(
         self,
         from_date: datetime,
         to_date: datetime = datetime.now()
-    ) -> None:
-        message = f'Transactions from {from_date} to {to_date}'
-
+    ) -> Dict[str, List[str]]:
+        aggregated_transactions = {}
         for account_name, account in self.bank_accounts.items():
+            aggregated_transactions[account_name] = []
             transactions = account.get_transactions(from_date, to_date)
-            message += f'\n\t# {account_name}:'
-            for index, transaction in enumerate(transactions):
+            for transaction in transactions:
                 value, currency, text = transaction
-                message += f'\n\t\t{index+1}. {value} {currency} ({text})'
+                aggregated_transactions[account_name].append(
+                    f'{value} {currency} ({text})'
+                )
 
-        print(message)
+        return aggregated_transactions
