@@ -26,12 +26,15 @@ class TerminalView(BaseView):
         self.show_available_commands()
 
         user_input = None
-        try:
-            while user_input != 'exit':
+        while user_input != 'exit':
+            try:
                 user_input = input('How may I help?\t')
                 self.command_map[user_input]()
-        except (KeyboardInterrupt, EOFError):
-            print('\nbye!!!')
+            except (KeyboardInterrupt, EOFError):
+                print('\nbye!!!')
+                user_input = 'exit'
+            except (KeyError):
+                print('Unknown command. Type \'help\' to list all available commands')
 
     def show_available_commands(self):
         print('Available commands:')
