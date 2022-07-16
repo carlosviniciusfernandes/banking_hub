@@ -2,7 +2,7 @@
 
 This a simple bank aggregation python application for displaying info from different banks in a uniform format, working like a personal _banking hub_ for the user. The ideia is that each integrated bank may have a different response format when pulling information from it. The application translates and displays that info into a particular format.
 
-Code wise, the application is very simple, it doesn't require any external python packages, or that you build a virtual env just for it. It is only necessary that your system has python 3.7 or newer verions of python.
+Code wise, the application is very simple, it doesn't require any external python packages (unless the `TkView` is used), or that you build a virtual env just for it. It is only necessary that your system has python 3.7 or newer verions of python.
 
 ---
 ###  External Packages / Dependencies
@@ -42,14 +42,6 @@ __Note__: If want a `pytest` as the test runner, you can but you will need to in
 > $ python3 -m pytest
 
 An advantage of using `pytest` as the test runner, it provides a much nicer output for the reader.
-
----
-
-### Feature branch Tkview disclaimer
-After developing a initial solution, I created a feature branch where I broken down the `BankController` into a GUIController and a `BankingHub` service class. Then I refactored the application to have a user interface using an MVC like architecture with two different implementations for the view, one using the terminal and the other using the `tkinter` package.
-
-Since it requires additonal python packages, I decided to do it in a separate. Checkout the branch code well the gif demos here:
-> https://github.com/carlosviniciusfernandes/banking_hub/tree/tkview
 
 
 ---
