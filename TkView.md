@@ -1,6 +1,6 @@
 ## Tkinter package
 ---
-The view `TkView` has been introduced a GUI using python Tkinter package.
+The view `TkView` introduces a GUI using python Tkinter package.
 
 To use, you must install it using the following commands:
 > $ sudo apt-get install python3-tk
